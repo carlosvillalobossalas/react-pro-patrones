@@ -9,32 +9,32 @@ export const useShoppingCart = () => {
 
         setShoppingCart(prevCart => {
 
-            const productInCart: ProductInCart = prevCart[product.id] || { ...product, count: 0 };
+            // const productInCart: ProductInCart = prevCart[product.id] || { ...product, count: 0 };
 
-            if (Math.max(productInCart.count + count, 0) > 0) {
-                productInCart.count += count;
-                return {
-                    ...prevCart,
-                    [productInCart.id]: productInCart
-                }
-            }
-
-            //Borrar el producto
-            const { [product.id]: toDelete, ...rest } = prevCart;
-            return rest;
-
-            // if (count === 0) {
-            //     const { [product.id]: toDelete, ...rest } = prevCart;
-            //     return { ...rest }
-            // }
-
-            // return {
-            //     ...prevCart,
-            //     [product.id]: {
-            //         ...product,
-            //         count
+            // if (Math.max(productInCart.count + count, 0) > 0) {
+            //     productInCart.count += count;
+            //     return {
+            //         ...prevCart,
+            //         [productInCart.id]: productInCart
             //     }
             // }
+
+            // //Borrar el producto
+            // const { [product.id]: toDelete, ...rest } = prevCart;
+            // return rest;
+
+            if (count === 0) {
+                const { [product.id]: toDelete, ...rest } = prevCart;
+                return { ...rest }
+            }
+
+            return {
+                ...prevCart,
+                [product.id]: {
+                    ...product,
+                    count
+                }
+            }
         })
     }
     return { onProductCountChange, shoppingCart }
